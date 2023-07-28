@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "cypress": "^12.17.2",
+    "eslint": "^8.46.0",
+    "eslint-plugin-cypress": "^2.13.3"
+  }
+}

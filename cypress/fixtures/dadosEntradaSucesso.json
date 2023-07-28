@@ -1,0 +1,6 @@
+{
+  "client_id": "iterasys-app",
+  "client_secret": "Q7RrBqtIK42ZLUV16HiFndvkQPk3ECBn",
+  "scope": "convenio-api/.default",
+  "grant_type": "client_credentials"
+}
