@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('getToken', (dadosChamada) => {
+Cypress.Commands.add('getAuth', (dadosChamada) => {
     cy.request({
         method: 'POST',
         url: '/auth/realms/api-management/protocol/openid-connect/token',
@@ -32,7 +32,25 @@ Cypress.Commands.add('getToken', (dadosChamada) => {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: dadosChamada,
-        failOnStatusCode: false        
+        failOnStatusCode: false
     })
+})
 
+Cypress.Commands.add('getToken', () => {
+    cy.request({
+        method: 'POST',
+        url: '/auth/realms/api-management/protocol/openid-connect/token',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: {
+            // eslint-disable-next-line 
+            client_id: 'iterasys-app',
+            // eslint-disable-next-line 
+            client_secret: 'Q7RrBqtIK42ZLUV16HiFndvkQPk3ECBn',            
+            scope: 'convenio-api/.default',
+            // eslint-disable-next-line 
+            grant_type: 'client_credentials'
+        },
+    })
 })
