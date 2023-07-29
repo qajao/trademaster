@@ -2,6 +2,7 @@
   "dependencies": {
     "cypress": "^12.17.2",
     "eslint": "^8.46.0",
-    "eslint-plugin-cypress": "^2.13.3"
+    "eslint-plugin-cypress": "^2.13.3",
+    "faker-br": "^0.4.1"
   }
 }

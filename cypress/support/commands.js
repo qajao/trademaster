@@ -24,10 +24,11 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+
 Cypress.Commands.add('getAuth', (dadosChamada) => {
     cy.request({
         method: 'POST',
-        url: '/auth/realms/api-management/protocol/openid-connect/token',
+        url: Cypress.env('baseUrl') + '/auth/realms/api-management/protocol/openid-connect/token',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -39,7 +40,7 @@ Cypress.Commands.add('getAuth', (dadosChamada) => {
 Cypress.Commands.add('getToken', () => {
     cy.request({
         method: 'POST',
-        url: '/auth/realms/api-management/protocol/openid-connect/token',
+        url: Cypress.env('baseUrl') + '/auth/realms/api-management/protocol/openid-connect/token',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -52,5 +53,14 @@ Cypress.Commands.add('getToken', () => {
             // eslint-disable-next-line 
             grant_type: 'client_credentials'
         },
+    })
+})
+
+Cypress.Commands.add('cadastrarEmpresa', (dadosEmpresa) => {
+    cy.request({
+        method: 'POST',
+        url: Cypress.env('baseUrl2') + '/enroll/customer/',        
+        body: dadosEmpresa,
+        failOnStatusCode: false
     })
 })
