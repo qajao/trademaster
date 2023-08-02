@@ -24,11 +24,10 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-
 Cypress.Commands.add('getAuth', (dadosChamada) => {
     cy.request({
         method: 'POST',
-        url: Cypress.env('baseUrl') + '/auth/realms/api-management/protocol/openid-connect/token',
+        url: Cypress.env('baseUrlToken') + '/auth/realms/api-management/protocol/openid-connect/token',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -40,15 +39,15 @@ Cypress.Commands.add('getAuth', (dadosChamada) => {
 Cypress.Commands.add('getToken', () => {
     cy.request({
         method: 'POST',
-        url: Cypress.env('baseUrl') + '/auth/realms/api-management/protocol/openid-connect/token',
+        url: Cypress.env('baseUrlToken') + '/auth/realms/api-management/protocol/openid-connect/token',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: {
             // eslint-disable-next-line 
-            client_id: 'iterasys-app',
+            client_id: Cypress.env('clienteId'),
             // eslint-disable-next-line 
-            client_secret: 'Q7RrBqtIK42ZLUV16HiFndvkQPk3ECBn',            
+            client_secret: Cypress.env('clientSecret'),
             scope: 'convenio-api/.default',
             // eslint-disable-next-line 
             grant_type: 'client_credentials'
@@ -59,8 +58,34 @@ Cypress.Commands.add('getToken', () => {
 Cypress.Commands.add('cadastrarEmpresa', (dadosEmpresa) => {
     cy.request({
         method: 'POST',
-        url: Cypress.env('baseUrl2') + '/enroll/customer/',        
+        url: Cypress.env('baseUrl2') + '/enroll/customer/',
         body: dadosEmpresa,
+        failOnStatusCode: false
+    })
+})
+
+Cypress.Commands.add('getAuthorization', (parametro, token) => {
+    cy.request({
+        method: 'GET',
+        url: Cypress.env('baseUrl') + `/authorization?buyerDocument=${parametro}`,
+        headers: {
+            Accept: 'application/json; charset=utf-8',
+            Authorization: `Bearer ${token}`
+        }
+    })
+
+})
+
+Cypress.Commands.add('solicitarLimiteCredito', (dadosSolicitacao, token) => {
+    cy.request({
+        method: 'POST',
+        url: Cypress.env('baseUrl') + '/creditLimitRequest',
+        headers: {                      
+            'Content-Type': 'application/json',
+            Accept: 'application/json; charset=utf-8',
+            Authorization: `Bearer ${token}`
+        },
+        body: dadosSolicitacao,
         failOnStatusCode: false
     })
 })
