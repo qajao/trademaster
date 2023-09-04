@@ -9,7 +9,7 @@ Cypress.Commands.add('generateCreditLimitJson', () => {
     // Json a ser enviado
     const jsonData = {
         'buyerDocument': faker.br.cnpj(),
-        'externalCustomerCode': '0999',
+        'externalCustomerCode': faker.address.zipCode(),
         'suggestedCreditLimit': faker.finance.amount(),
         'buyerName': combinado,
         'businessPhone': faker.phone.phoneNumber(),
